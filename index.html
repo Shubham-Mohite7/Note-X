@@ -14,15 +14,20 @@
     <header>
         <div class="container">
             <nav>
-                <h1 id="logo">note-x</h1>
-                <ul>
-                    <li><a href="#" id="nav-home">Home</a></li>
-                    <li><a href="#" id="nav-upload">Upload Note</a></li>
-                    <li><a href="#" id="nav-search">Search</a></li>
-                    <li><a href="#" id="nav-dashboard">Dashboard</a></li>
-                    <li><a href="#" id="nav-profile">Profile</a></li>
-
-                </ul>
+                <div id="logo" class="logo">note<span>-x</span></div>
+                <div class="nav-right">
+                    <button id="menu-toggle" aria-label="Toggle menu">☰</button>
+                    <ul id="nav-links">
+                        <li><a href="#" id="nav-home">Home</a></li>
+                        <li><a href="#" id="nav-upload">Upload Note</a></li>
+                        <li><a href="#" id="nav-search">Search</a></li>
+                        <li><a href="#" id="nav-dashboard">Dashboard</a></li>
+                        <li><a href="#" id="nav-profile">Profile</a></li>
+                    </ul> 
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="theme-toggle"><input type="checkbox" id="theme-toggle"><span class="slider"></span></label>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -57,22 +62,22 @@
                         <div class="feature-card">
                             <h3><span class="feature-icon">💬</span> Discussion Threads</h3>
                             <p>Engage with peers, ask questions, and deepen your understanding on various subjects.</p>
-                            <button class="feature-button">Join Discussions</button>
+                            <button class="feature-button" data-feature="discussions">Join Discussions</button>
                         </div>
                         <div class="feature-card">
                             <h3><span class="feature-icon">👥</span> Study Groups</h3>
                             <p>Find and join study groups to collaborate with other students on your courses.</p>
-                            <button class="feature-button">Find a Group</button>
+                            <button class="feature-button" data-feature="groups">Find a Group</button>
                         </div>
                         <div class="feature-card">
                             <h3><span class="feature-icon">⭐</span> Fair Reviews</h3>
                             <p>Our community-driven rating system ensures you find the highest quality notes.</p>
-                            <button class="feature-button">Learn More</button>
+                            <button class="feature-button" data-feature="reviews">Learn More</button>
                         </div>
                         <div class="feature-card">
                             <h3><span class="feature-icon">🛡️</span> Content Moderation</h3>
                             <p>Help us maintain a safe and productive environment by reporting inappropriate content.</p>
-                            <button class="feature-button">Report Content</button>
+                            <button class="feature-button" data-feature="moderation">Report Content</button>
                         </div>
                     </div>
                 </section>
@@ -130,12 +135,18 @@
                             <input type="email" id="signin-email" placeholder="you@example.com" required>
                             <label for="signin-password">Password</label>
                             <input type="password" id="signin-password" required>
+                            <a href="#" class="forgot-password">Forgot password?</a>
                             <button type="submit">Sign In</button>
                         </form>
                     </div>
+
+                    <div class="auth-separator">
+                        <span class="line"></span><span>OR</span><span class="line"></span>
+                    </div>
+
                     <div id="sign-up-card" class="card">
                         <h3>Create an Account</h3>
-                        <form id="sign-up-form">
+                        <form id="sign-up-form" class="auth-form">
                             <label for="signup-name">Name</label>
                             <input type="text" id="signup-name" placeholder="e.g., Alex Doe" required>
                             <label for="signup-email">Email</label>

@@ -1,12 +1,25 @@
 :root {
+    /* Light Theme (Default) */
     --bg-color: #f0f2f5;
     --glass-bg: rgba(255, 255, 255, 0.65);
     --glass-border: rgba(255, 255, 255, 0.8);
     --text-primary: #1a202c;
     --text-secondary: #4a5568;
     --accent-color: #2ecc71; /* A clean, modern green */
+    --accent-color-darker: #27ae60;
     --shadow-color: rgba(0, 0, 0, 0.07);
     --font-main: 'Poppins', sans-serif;
+    --spotlight-color: rgba(46, 204, 113, 0.15);
+}
+
+body.dark-mode {
+    --bg-color: #1a202c;
+    --glass-bg: rgba(45, 55, 72, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #edf2f7;
+    --text-secondary: #a0aec0;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --spotlight-color: rgba(46, 204, 113, 0.1);
 }
 
 @keyframes fadeInUp {
@@ -50,7 +63,7 @@ body::before {
     height: 100%;
     background: radial-gradient(
         circle 300px at var(--cursor-x) var(--cursor-y),
-        rgba(46, 204, 113, 0.15), /* A more visible green spotlight */
+        var(--spotlight-color), /* A more visible green spotlight */
         transparent 60%
     );
     z-index: -1;
@@ -80,12 +93,34 @@ header nav {
     align-items: center;
     padding: 5px 0;
 }
-header #logo {
-    font-size: 2em;
-    cursor: pointer;
+header .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
+
+#menu-toggle {
+    display: none; /* Hidden on desktop */
+}
+header #logo {
+    font-size: clamp(1.8rem, 5vw, 2.2rem); /* Responsive font size */
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+header #logo span {
+    color: var(--accent-color);
+    display: inline-block; /* Needed for transform */
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+header #logo:hover span {
+    transform: rotate(-10deg) scale(1.1);
+}
+
 header ul {
-    list-style: none;
+    list-style: none; 
     margin: 0;
     padding: 0;
     display: flex;
@@ -98,12 +133,7 @@ header a {
     padding: 5px 10px;
     border-radius: 6px;
     transition: background-color 0.3s;
-}
-header h1 {
-    margin: 0;
-    font-size: 3.5em;
-    color: var(--text-primary);
-    font-weight: 700;
+    font-weight: 500;
 }
 header a:hover {
     background-color: rgba(46, 204, 113, 0.1);
@@ -153,7 +183,7 @@ main {
 .note-card:hover {
     transform: translateY(-5px) scale(1.03);
     box-shadow: 0 10px 25px var(--shadow-color);
-    background: rgba(255, 255, 255, 0.75);
+    background: var(--glass-bg);
 }
 
 /* Features Section */
@@ -164,7 +194,7 @@ main {
     margin-top: 20px;
 }
 .feature-card {
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--glass-bg);
     padding: 20px;
     border-radius: 10px;
     border: 1px solid var(--glass-border);
@@ -204,7 +234,7 @@ main {
 .note-card:hover {
     transform: translateY(-5px) scale(1.03);
     box-shadow: 0 10px 25px var(--shadow-color);
-    background: rgba(255, 255, 255, 0.75);
+    background: var(--glass-bg);
 }
 .star-rating {
     color: #facc15;
@@ -233,7 +263,7 @@ form input[type="text"], form textarea, form input[type="file"] {
     border-radius: 6px;
     border: 1px solid var(--glass-border);
     box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: var(--glass-bg);
     color: var(--text-primary);
     font-size: 1em;
     font-family: var(--font-main);
@@ -242,7 +272,7 @@ form input[type="text"], form textarea, form input[type="file"] {
 form input:focus, form textarea:focus {
     outline: none;
     border-color: var(--accent-color);
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: var(--glass-bg);
     box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
 }
 form input[type="file"] {
@@ -268,7 +298,7 @@ form button {
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
 }
 form button:hover {
-    background: #27ae60; /* Darker green on hover */
+    background: var(--accent-color-darker); /* Darker green on hover */
     box-shadow: 0 7px 14px rgba(46, 204, 113, 0.3);
 }
 form button:active {
@@ -338,9 +368,38 @@ footer {
 
 /* Profile/Auth Page Styles */
 .auth-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.auth-container > .card {
+    flex: 1;
+}
+
+.auth-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 200px; /* Adjust as needed */
+    align-self: center;
+    gap: 10px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.auth-separator .line {
+    width: 1px;
+    height: 100%;
+    background-color: var(--glass-border);
+}
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    margin: -10px 0 15px 0;
+    font-size: 0.9em;
 }
 
 #sign-in-card {
@@ -359,16 +418,16 @@ footer {
 }
 #leaderboard-list li {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; 
     align-items: center;
     padding: 12px 15px;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--glass-bg);
     transition: background 0.3s, transform 0.2s;
     border: 1px solid transparent;
 }
 #leaderboard-list li:hover {
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--glass-bg);
     transform: scale(1.02);
 }
 .leaderboard-user {
@@ -425,7 +484,7 @@ footer {
     gap: 20px;
 }
 .stat-card {
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--glass-bg);
     padding: 20px;
     border-radius: 10px;
     border: 1px solid var(--glass-border);
@@ -452,17 +511,59 @@ footer {
     line-height: 1.2;
 }
 
+/* --- Theme Toggle Switch --- */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: 20px; /* Add some space from the nav links */
+}
+.theme-switch {
+    display: inline-block;
+    height: 28px;
+    position: relative;
+    width: 55px;
+}
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 28px;
+}
+.slider:before {
+    position: absolute;
+    content: "☀️";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+input:checked + .slider {
+    background-color: var(--accent-color);
+}
+input:checked + .slider:before {
+    transform: translateX(27px);
+    content: "🌙";
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-    header h1 {
-        font-size: 2.5em;
-    }
-    header #logo {
-        font-size: 1.8em;
-    }
-    header h1 {
-        font-size: 2.2em;
-    }
     header nav {
         flex-direction: column;
         gap: 10px;
@@ -473,11 +574,33 @@ footer {
         width: 100%;
         gap: 5px;
     }
+    header nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .theme-switch-wrapper {
+        margin-left: 0;
+        margin-top: 10px;
+        width: 100%;
+        justify-content: flex-end;
+    }
     .charts-container {
         grid-template-columns: 1fr;
     }
     .auth-container {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: 0;
+    }
+    .auth-separator {
+        flex-direction: row;
+        height: auto;
+        width: 100%;
+        margin: 20px 0;
+    }
+    .auth-separator .line {
+        height: 1px;
+        flex: 1;
     }
 }
 

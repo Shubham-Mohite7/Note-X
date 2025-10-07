@@ -4,6 +4,8 @@ const notes = [
         id: 1,
         title: 'Calculus I Cheat Sheet',
         uploader: 'Sarah K.',
+        subject: 'Mathematics',
+        grade: 'Freshman',
         avgRating: 4.5,
         content: 'A comprehensive one-page cheat sheet covering limits, derivatives, and basic integrals. Perfect for last-minute exam prep.',
         reviews: [
@@ -16,6 +18,8 @@ const notes = [
         id: 2,
         title: 'History of Ancient Rome',
         uploader: 'Mike P.',
+        subject: 'History',
+        grade: 'Sophomore',
         category: 'University',
         avgRating: 4.8,
         content: 'Detailed notes on the Roman Republic and the transition to the Roman Empire, including key figures like Caesar and Augustus.',
@@ -28,6 +32,8 @@ const notes = [
         id: 3,
         title: 'Intro to Python Programming',
         uploader: 'Chris L.',
+        subject: 'Computer Science',
+        grade: 'Freshman',
         category: 'University',
         avgRating: 4.9,
         content: 'Beginner-friendly notes on Python syntax, data types, loops, and functions. Includes simple code snippets.',
@@ -41,6 +47,8 @@ const notes = [
         id: 4,
         title: 'Organic Chemistry Reactions',
         uploader: 'Emily R.',
+        subject: 'Chemistry',
+        grade: '12th Grade',
         category: 'High School',
         avgRating: 4.2,
         content: 'A summary of major reaction mechanisms in introductory organic chemistry, including SN1, SN2, E1, and E2.',
@@ -53,6 +61,8 @@ const notes = [
         id: 5,
         title: 'World War II Summary',
         uploader: 'Mike P.',
+        subject: 'History',
+        grade: '11th Grade',
         category: 'High School',
         avgRating: 4.6,
         content: 'A summary of the major events and figures of World War II.',
@@ -60,6 +70,48 @@ const notes = [
             { name: 'Ben', rating: 5, text: 'Great for a quick review.' }
         ],
         analytics: { quality: [5, 4, 5, 4, 4], distribution: [0, 1, 4, 10, 9] }
+    },
+    {
+        id: 6,
+        title: 'Literary Devices for English',
+        uploader: 'Jessica T.',
+        subject: 'English',
+        grade: '10th Grade',
+        category: 'High School',
+        avgRating: 4.7,
+        content: 'A list of common literary devices like metaphors, similes, and personification with examples from classic literature.',
+        reviews: [
+            { name: 'Chloe', rating: 5, text: 'Super helpful for my essay!' }
+        ],
+        analytics: { quality: [5, 5, 4, 5, 4], distribution: [0, 0, 3, 15, 11] }
+    },
+    {
+        id: 7,
+        title: 'Data Structures in Java',
+        uploader: 'Chris L.',
+        subject: 'Computer Science',
+        grade: 'Sophomore',
+        category: 'University',
+        avgRating: 4.9,
+        content: 'Notes on Arrays, LinkedLists, Stacks, and Queues in Java. Includes complexity analysis.',
+        reviews: [
+            { name: 'Alex', rating: 5, text: 'Perfectly explained Big O notation.' }
+        ],
+        analytics: { quality: [5, 5, 5, 5, 4], distribution: [0, 0, 1, 9, 28] }
+    },
+    {
+        id: 8,
+        title: 'Introduction to Economics',
+        uploader: 'Sarah K.',
+        subject: 'Economics',
+        grade: 'Freshman',
+        category: 'University',
+        avgRating: 4.3,
+        content: 'Covering the basics of micro and macroeconomics, including supply/demand and market structures.',
+        reviews: [
+            { name: 'Daniel', rating: 4, text: 'Good starting point.' }
+        ],
+        analytics: { quality: [4, 4, 4, 5, 3], distribution: [1, 2, 8, 10, 6] }
     }
 ];
 
@@ -155,12 +207,18 @@ const navDashboard = document.getElementById('nav-dashboard');
 const navProfile = document.getElementById('nav-profile');
 const logo = document.getElementById('logo');
 
+
 function hideAllViews() {
     homeView.classList.add('hidden');
     noteDetailView.classList.add('hidden');
     searchView.classList.add('hidden');
     profileView.classList.add('hidden');
     dashboardView.classList.add('hidden');
+}
+function closeMobileNav() {
+    if (window.innerWidth <= 768) {
+        document.getElementById('nav-links').classList.remove('nav-open');
+    }
 }
 
 function showHome() {
@@ -204,19 +262,21 @@ function showNoteDetail(noteId) {
 }
 
 function showSearchView() {
+    closeMobileNav();
     hideAllViews();
     searchView.classList.remove('hidden');
     document.getElementById('search-input').focus();
     // Initially render all notes, or you could leave it empty
     renderSearchResults(notes);
 }
-
 function showProfileView() {
+    closeMobileNav();
     hideAllViews();
     profileView.classList.remove('hidden');
     document.getElementById('signin-email').focus();
 }
 function showDashboardView() {
+    closeMobileNav();
     hideAllViews();
     dashboardView.classList.remove('hidden');
     renderDashboard();
@@ -282,6 +342,17 @@ function applyFilters() {
     renderSearchResults(filteredNotes);
 }
 
+function handleFeatureButtonClick(e) {
+    e.preventDefault();
+    const featureTitle = e.target.closest('.feature-card').querySelector('h3').textContent.trim();
+    alert(`The "${featureTitle}" feature is currently under development. Stay tuned!`);
+}
+
+document.querySelectorAll('.feature-button').forEach(button => {
+    button.addEventListener('click', handleFeatureButtonClick);
+});
+
+
 [searchInput, subjectInput, categoryInput, gradeInput].forEach(input => input.addEventListener('input', applyFilters));
 
 function renderSearchResults(results, targetElement = searchResultsGrid) {
@@ -306,16 +377,25 @@ function renderSearchResults(results, targetElement = searchResultsGrid) {
     });
 }
 
-navHome.addEventListener('click', (e) => { e.preventDefault(); showHome(); });
-logo.addEventListener('click', (e) => { e.preventDefault(); showHome(); });
+navHome.addEventListener('click', (e) => { e.preventDefault(); closeMobileNav(); showHome(); });
+logo.addEventListener('click', (e) => { e.preventDefault(); closeMobileNav(); showHome(); });
 navUpload.addEventListener('click', (e) => {
     e.preventDefault();
+    closeMobileNav();
     showHome();
     document.getElementById('upload-note').scrollIntoView({ behavior: 'smooth' });
 });
 navSearch.addEventListener('click', (e) => { e.preventDefault(); showSearchView(); });
 navDashboard.addEventListener('click', (e) => { e.preventDefault(); showDashboardView(); });
 navProfile.addEventListener('click', (e) => { e.preventDefault(); showProfileView(); });
+
+// --- Mobile Navigation Toggle ---
+const menuToggle = document.getElementById('menu-toggle');
+const navLinks = document.getElementById('nav-links');
+
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('nav-open');
+});
 
 
 
@@ -499,7 +579,32 @@ function renderLeaderboard() {
     });
 }
 
+// --- Theme Toggler ---
+const themeToggle = document.getElementById('theme-toggle');
+
+function setInitialTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.checked = true;
+    } else {
+        document.body.classList.remove('dark-mode');
+        themeToggle.checked = false;
+    }
+}
+
+themeToggle.addEventListener('change', () => {
+    if (themeToggle.checked) {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+    }
+});
+
 // --- Initial Page Load ---
 renderNotes(notes, notesGrid);
 showHome();
 renderLeaderboard();
+setInitialTheme();
