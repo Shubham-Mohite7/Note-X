@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>note-x - Share Your Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <h1 id="logo">note-x</h1>
+                <ul>
+                    <li><a href="#" id="nav-home">Home</a></li>
+                    <li><a href="#" id="nav-upload">Upload Note</a></li>
+                    <li><a href="#" id="nav-search">Search</a></li>
+                    <li><a href="#" id="nav-dashboard">Dashboard</a></li>
+                    <li><a href="#" id="nav-profile">Profile</a></li>
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <div id="home-view">
+                <!-- Section to Upload a Note -->
+                <section id="upload-note" class="card">
+                    <h2>Upload a Note</h2>
+                    <form id="upload-form">
+                        <label for="note-title">Title</label>
+                        <input type="text" id="note-title" name="title" placeholder="e.g., Advanced JavaScript Concepts" required>
+                        <label for="note-file">Note File (PDF, DOCX, TXT)</label>
+                        <input type="file" id="note-file" name="noteFile" required>
+                        <button type="submit">Upload & Share</button>
+                    </form>
+                </section>
+
+                <!-- Section to display all available notes -->
+                <section id="notes-section" class="card">
+                    <h2>Available Notes</h2>
+                    <div id="notes-grid" class="notes-grid-layout">
+                        <!-- Note cards will be dynamically inserted here by JavaScript -->
+                    </div>
+                </section>
+
+                <!-- More Features Section -->
+                <section id="features-section" class="card">
+                    <h2>Explore More</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <h3><span class="feature-icon">💬</span> Discussion Threads</h3>
+                            <p>Engage with peers, ask questions, and deepen your understanding on various subjects.</p>
+                            <button class="feature-button">Join Discussions</button>
+                        </div>
+                        <div class="feature-card">
+                            <h3><span class="feature-icon">👥</span> Study Groups</h3>
+                            <p>Find and join study groups to collaborate with other students on your courses.</p>
+                            <button class="feature-button">Find a Group</button>
+                        </div>
+                        <div class="feature-card">
+                            <h3><span class="feature-icon">⭐</span> Fair Reviews</h3>
+                            <p>Our community-driven rating system ensures you find the highest quality notes.</p>
+                            <button class="feature-button">Learn More</button>
+                        </div>
+                        <div class="feature-card">
+                            <h3><span class="feature-icon">🛡️</span> Content Moderation</h3>
+                            <p>Help us maintain a safe and productive environment by reporting inappropriate content.</p>
+                            <button class="feature-button">Report Content</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Leaderboard Section -->
+                <section id="leaderboard-section" class="card">
+                    <h2>Top Contributors</h2>
+                    <ol id="leaderboard-list">
+                        <!-- Leaderboard will be dynamically inserted here by JavaScript -->
+                    </ol>
+                </section>
+            </div>
+
+            <div id="search-view" class="hidden">
+                <section id="search-section" class="card">
+                    <h2>Search Notes</h2>
+                    <form id="search-form" role="search">
+                        <div class="search-filters">
+                            <div class="filter-group">
+                                <label for="search-input">Search by Title, Description, or Uploader</label>
+                                <input type="text" id="search-input" placeholder="e.g., 'Calculus', 'Python'">
+                            </div>
+                            <div class="filter-group">
+                                <label for="search-subject">Subject</label>
+                                <input type="text" id="search-subject" placeholder="e.g., 'History'">
+                            </div>
+                            <div class="filter-group">
+                                <label for="search-category">Category</label>
+                                <select id="search-category"><option value="">All</option><option>High School</option><option>University</option></select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="search-grade">Grade</label>
+                                <select id="search-grade"><option value="">All</option><option>9th Grade</option><option>10th Grade</option><option>11th Grade</option><option>12th Grade</option><option>Freshman</option><option>Sophomore</option></select>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <section id="search-results-section" class="card">
+                    <h3>Results</h3>
+                    <div id="search-results-grid" class="notes-grid-layout"></div>
+                </section>
+            </div>
+
+            <div id="profile-view" class="hidden">
+                <section id="profile-details" class="card">
+                    <h2>Join the Community</h2>
+                    <p>Sign up to share your notes, or sign in to manage your contributions.</p>
+                </section>
+
+                <div class="auth-container">
+                    <div id="sign-in-card" class="card">
+                        <h3>Sign In</h3>
+                        <form id="sign-in-form">
+                            <label for="signin-email">Email</label>
+                            <input type="email" id="signin-email" placeholder="you@example.com" required>
+                            <label for="signin-password">Password</label>
+                            <input type="password" id="signin-password" required>
+                            <button type="submit">Sign In</button>
+                        </form>
+                    </div>
+                    <div id="sign-up-card" class="card">
+                        <h3>Create an Account</h3>
+                        <form id="sign-up-form">
+                            <label for="signup-name">Name</label>
+                            <input type="text" id="signup-name" placeholder="e.g., Alex Doe" required>
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" placeholder="you@example.com" required>
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" placeholder="6+ characters" required>
+                            <button type="submit">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dashboard-view" class="hidden">
+                <section id="dashboard-main" class="card">
+                    <h2>Site-wide Analytics Dashboard</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Notes</h3>
+                            <p id="total-notes-stat" class="stat-number">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Top Uploader</h3>
+                            <p id="top-uploader-stat" class="stat-text">N/A</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Highest Rated</h3>
+                            <p id="highest-rated-stat" class="stat-text">N/A</p>
+                        </div>
+                         <div class="stat-card">
+                            <h3>Average Rating</h3>
+                            <p id="average-rating-stat" class="stat-number">0.0</p>
+                        </div>
+                    </div>
+                </section>
+                <section id="dashboard-charts" class="card"><div class="chart-wrapper"><canvas id="dashboardChart"></canvas></div></section>
+            </div>
+
+            <div id="note-detail-view" class="hidden">
+                <h2 id="detail-title"></h2>
+                <p id="detail-uploader"></p>
+                <div id="detail-avg-rating" class="star-rating"></div>
+
+                <div id="detail-content" class="note-content card"></div>
+
+                <!-- Data Visualization Section -->
+                <section id="note-analytics" class="card">
+                    <h2>Note Analytics</h2>
+                    <div class="charts-container">
+                        <div class="chart-wrapper"><canvas id="radarChart"></canvas></div>
+                        <div class="chart-wrapper"><canvas id="barChart"></canvas></div>
+                    </div>
+                </section>
+
+                <div id="reviews" class="card">
+                    <h3>Reviews</h3>
+                    <div id="reviews-list"></div>
+                </div>
+
+                <!-- Form to add a new review -->
+                <section id="add-review" class="card review-form-card">
+                    <h2>Write a Review</h2>
+                    <form id="review-form">
+                        <label for="reviewer-name">Your Name</label>
+                        <input type="text" id="reviewer-name" required>
+                        <label>Rating</label>
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars">☆</label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">☆</label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">☆</label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">☆</label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">☆</label>
+                        </div>
+                        <label for="review-text">Review</label>
+                        <textarea id="review-text" required></textarea>
+                        <button type="submit">Submit Review</button>
+                    </form>
+                </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>Contributors: Shubham Mohite | Hrithik R Muta | Nikhil Nambiar</p>
+        <p>&copy; 2024 note-x. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
