@@ -1,4 +1,4 @@
-📝 Note-X - Note Sharing Platform
+📝 Note-X - Note Sharing Platform (Web based)
 
 Note-X is a simple yet powerful note-sharing platform built using HTML, CSS, and JavaScript. It allows users to create, edit, and manage notes effortlessly, providing a clean and responsive interface for organizing your thoughts, tasks, and ideas in one place.
 
